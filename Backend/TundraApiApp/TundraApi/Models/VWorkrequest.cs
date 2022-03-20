@@ -1,0 +1,115 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace TundraApi.Models
+{
+    public partial class VWorkrequest
+    {
+        public DateTime? WorkRequestAssignDate { get; set; }
+        public string? WorkRequestChangeRemark { get; set; }
+        public decimal WorkRequestChargeback { get; set; }
+        public string? WorkRequestClientCode { get; set; }
+        public string? WorkRequestContact { get; set; }
+        public string? WorkRequestContactPhone { get; set; }
+        public string? WorkRequestCrAccount { get; set; }
+        public string? WorkRequestCraft { get; set; }
+        public string? WorkRequestCreatedBy { get; set; }
+        public DateTime? WorkRequestCreationDate { get; set; }
+        public string? WorkRequestCrew { get; set; }
+        public string? WorkRequestDepartment { get; set; }
+        public decimal WorkRequestDirtyLog { get; set; }
+        public string? WorkRequestDivision { get; set; }
+        public string? WorkRequestDrAccount { get; set; }
+        public decimal? WorkRequestDuration { get; set; }
+        public string? WorkRequestEmployee { get; set; }
+        public string? WorkRequestEqaddress1 { get; set; }
+        public string? WorkRequestEqaddress2 { get; set; }
+        public string? WorkRequestEqoperator { get; set; }
+        public string? WorkRequestEquipment { get; set; }
+        public string? WorkRequestEquipmentDesc { get; set; }
+        public decimal WorkRequestEstCost { get; set; }
+        public decimal WorkRequestEstHours { get; set; }
+        public decimal WorkRequestEstLabor { get; set; }
+        public decimal WorkRequestEstMaterial { get; set; }
+        public decimal WorkRequestEstService { get; set; }
+        public decimal WorkRequestEstTools { get; set; }
+        public string? WorkRequestFailureCode1 { get; set; }
+        public string? WorkRequestFailureCode2 { get; set; }
+        public string? WorkRequestFailureCode3 { get; set; }
+        public decimal WorkRequestInactive { get; set; }
+        public string? WorkRequestLocation { get; set; }
+        public string? WorkRequestLocationDesc { get; set; }
+        public string? WorkRequestManager { get; set; }
+        public string? WorkRequestModifyBy { get; set; }
+        public DateTime? WorkRequestModifyDate { get; set; }
+        public string? WorkRequestNote1 { get; set; }
+        public string? WorkRequestNote2 { get; set; }
+        public string? WorkRequestNote3 { get; set; }
+        public string? WorkRequestNote4 { get; set; }
+        public string? WorkRequestNote5 { get; set; }
+        public string? WorkRequestNote6 { get; set; }
+        public string? WorkRequestNote7 { get; set; }
+        public string? WorkRequestNote8 { get; set; }
+        public DateTime? WorkRequestOpenDate { get; set; }
+        public string? WorkRequestPhase { get; set; }
+        public DateTime? WorkRequestPostDate { get; set; }
+        public string? WorkRequestPriority { get; set; }
+        public string? WorkRequestProcNum { get; set; }
+        public string? WorkRequestProjectId { get; set; }
+        public string? WorkRequestRemark { get; set; }
+        public string? WorkRequestRequest { get; set; }
+        public string? WorkRequestRequester { get; set; }
+        public string? WorkRequestRoom { get; set; }
+        public string? WorkRequestStatus { get; set; }
+        public decimal WorkRequestStatusCode { get; set; }
+        public DateTime? WorkRequestTargetDate { get; set; }
+        public DateTime? WorkRequestTargetEndDate { get; set; }
+        public string? WorkRequestWoType { get; set; }
+        public string WorkRequestWrnum { get; set; } = null!;
+        public string? EquipmentSerialNum { get; set; }
+        public string? Printdate { get; set; }
+        public DateTime Printdate2 { get; set; }
+        public string? WorkRequestAlertType { get; set; }
+        public string? WorkRequestFieldArea { get; set; }
+        public string? WorkRequestSurfaceLsdlocation { get; set; }
+        public string? WorkRequestDownholeLsdlocation { get; set; }
+        public string? WorkRequestOilPerDay { get; set; }
+        public string? WorkRequestWaterPerDay { get; set; }
+        public decimal? WorkRequestIsShutDown { get; set; }
+        public string? WorkRequestProdEngineering { get; set; }
+        public string? WorkRequestNewSheaveSizeRequest { get; set; }
+        public string? WorkRequestNewSpmrequest { get; set; }
+        public string? WorkRequestEquipmentManufacturer { get; set; }
+        public string? WorkRequestUnitSize { get; set; }
+        public string? WorkRequestHistoryProblemDescription { get; set; }
+        public string? WorkRequestLeaseRoadCondition { get; set; }
+        public string? WorkRequestPumpJackInfo { get; set; }
+        public string? WorkRequestElectricPropaneMotor { get; set; }
+        public string? WorkRequestMotorVoltage { get; set; }
+        public decimal? WorkRequestIsPumpJackWithVfdtimelock { get; set; }
+        public string? WorkRequestSheaveSize { get; set; }
+        public decimal? WorkRequestPumpJackCheck { get; set; }
+        public string? WorkRequestPumpJackFrequence { get; set; }
+        public string? WorkRequestMaintenanceIssue { get; set; }
+        public decimal? WorkRequestIsHazardIdrequired { get; set; }
+        public string? WorkRequestEmailCc1 { get; set; }
+        public string? WorkRequestEmailCc2 { get; set; }
+        public string? WorkRequestEmailCc3 { get; set; }
+        public string? WorkRequestEmailCc4 { get; set; }
+        public string? WorkRequestEmailCc5 { get; set; }
+        public string? WorkRequestLossEstimate { get; set; }
+        public string? WorkRequestAlarmIncluded { get; set; }
+        public string? WorkRequestSurfLsd { get; set; }
+        public string? WorkRequestSurfSect { get; set; }
+        public string? WorkRequestSurfTownShip { get; set; }
+        public string? WorkRequestSurfRange { get; set; }
+        public string? WorkRequestDhlsd { get; set; }
+        public string? WorkRequestDhsect { get; set; }
+        public string? WorkRequestDhtownShip { get; set; }
+        public string? WorkRequestDhrange { get; set; }
+        public string? WorkRequestThirdRequester { get; set; }
+        public string? WorkRequestForthRequester { get; set; }
+        public string? WorkRequestFifthRequester { get; set; }
+        public string? WorkRequestCustomer { get; set; }
+    }
+}

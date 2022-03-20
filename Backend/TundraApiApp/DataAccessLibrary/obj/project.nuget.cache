@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "Zr/WSWdoSARqjIjpXoiQWeBp6mfh12sTAr2Bjd1AtGInu8cV4LJm13DNoNRsaFzRWYfMp50ozt0+GFmeeWQ2dQ==",
+  "success": true,
+  "projectFilePath": "D:\\CodingProjects\\TundraApiApp\\DataAccessLibrary\\DataAccessLibrary.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Nolan\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
+    "C:\\Users\\Nolan\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\6.0.0\\microsoft.extensions.configuration.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\Nolan\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+    "C:\\Users\\Nolan\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

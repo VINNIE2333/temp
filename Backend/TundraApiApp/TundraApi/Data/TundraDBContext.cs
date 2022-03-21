@@ -1,11 +1,16 @@
 using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using TundraApi.Models;
+using TDBMS.Models.TableModels;
+using Microsoft.EntityFrameworkCore.SqlServer;
 
-namespace TundraApi.Data
+#nullable disable
+
+
+
+namespace TundraApi
 {
+ 
     public partial class TundraDBContext : DbContext
     {
         public TundraDBContext()
@@ -17,8 +22,9 @@ namespace TundraApi.Data
         {
         }
 
+
         //Approve, Condition,FailureCode, PDMHistory, PMOffSeason,
-        //UserWorkLists, wrworelation
+     
 
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<AlternatePart> AlternatePart { get; set; }
@@ -243,6 +249,8 @@ namespace TundraApi.Data
         public virtual DbSet<Wrhistory> WRHistory { get; set; }
         public virtual DbSet<Wrworelation> WRWORelation { get; set; }
 
+      
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -329,7 +337,9 @@ namespace TundraApi.Data
                     .HasColumnType("numeric(18, 0)")
                     .ValueGeneratedOnAdd();
 
-                entity.Property(e => e.AlternateItemNum).HasMaxLength(60);
+                entity.Property(e => e.AlternateItemNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.CreatedBy).HasMaxLength(60);
 
@@ -337,7 +347,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.DirtyLog).HasColumnType("numeric(18, 0)");
 
-                entity.Property(e => e.ItemNum).HasMaxLength(60);
+                entity.Property(e => e.ItemNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.ModifyBy).HasMaxLength(60);
 
@@ -352,7 +364,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Amount).HasColumnType("decimal(18, 4)");
 
-                entity.Property(e => e.ApproveCode).HasMaxLength(60);
+                entity.Property(e => e.ApproveCode)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.ApproveInOrder).HasColumnType("decimal(1, 0)");
 
@@ -368,7 +382,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.ModifyDate).HasColumnType("datetime");
 
-                entity.Property(e => e.Module).HasMaxLength(50);
+                entity.Property(e => e.Module)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.OnePersonApprove).HasColumnType("decimal(1, 0)");
 
@@ -479,7 +495,9 @@ namespace TundraApi.Data
 
                 entity.ToTable("Condition");
 
-                entity.Property(e => e.ConditionCode).HasMaxLength(60);
+                entity.Property(e => e.ConditionCode)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.ConditionDescription).HasMaxLength(200);
 
@@ -856,10 +874,12 @@ namespace TundraApi.Data
                     .HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.Eqcode)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("EQCode");
 
                 entity.Property(e => e.Eqlevel)
+                    .IsRequired()
                     .HasMaxLength(2)
                     .HasColumnName("EQLevel");
 
@@ -892,13 +912,17 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.DirtyLog).HasColumnType("numeric(18, 0)");
 
-                entity.Property(e => e.Equipment).HasMaxLength(60);
+                entity.Property(e => e.Equipment)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.IsInventory).HasColumnType("numeric(1, 0)");
 
                 entity.Property(e => e.IssueUnit).HasMaxLength(60);
 
-                entity.Property(e => e.ItemNum).HasMaxLength(60);
+                entity.Property(e => e.ItemNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.ModifyBy).HasMaxLength(60);
 
@@ -1229,11 +1253,14 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.CreationDate).HasColumnType("datetime");
 
-                entity.Property(e => e.Description).HasMaxLength(255);
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .HasMaxLength(255);
 
                 entity.Property(e => e.DirtyLog).HasColumnType("numeric(14, 0)");
 
                 entity.Property(e => e.FailureCode1)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("FailureCode");
 
@@ -1275,13 +1302,18 @@ namespace TundraApi.Data
                     .HasColumnType("numeric(1, 0)")
                     .HasColumnName("importtype");
 
-                entity.Property(e => e.InterfaceModule).HasMaxLength(60);
+                entity.Property(e => e.InterfaceModule)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.InterfaceName)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasDefaultValueSql("('')");
 
-                entity.Property(e => e.InterfaceType).HasMaxLength(60);
+                entity.Property(e => e.InterfaceType)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.KeyFieldToTrigger).HasMaxLength(60);
 
@@ -1333,10 +1365,13 @@ namespace TundraApi.Data
                 entity.Property(e => e.RequiredMatches).HasColumnType("numeric(4, 0)");
 
                 entity.Property(e => e.Status)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasDefaultValueSql("('NEW')");
 
-                entity.Property(e => e.Storeroom).HasMaxLength(60);
+                entity.Property(e => e.Storeroom)
+                    .IsRequired()
+                    .HasMaxLength(60);
             });
 
             modelBuilder.Entity<InvCountDetail>(entity =>
@@ -1355,7 +1390,9 @@ namespace TundraApi.Data
                     .HasColumnType("numeric(18, 0)")
                     .ValueGeneratedOnAdd();
 
-                entity.Property(e => e.BatchNum).HasMaxLength(60);
+                entity.Property(e => e.BatchNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Count)
                     .HasColumnType("numeric(18, 4)")
@@ -1379,7 +1416,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.ModifyDate).HasColumnType("datetime");
 
-                entity.Property(e => e.Operator).HasMaxLength(60);
+                entity.Property(e => e.Operator)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Posted).HasColumnType("numeric(1, 0)");
             });
@@ -1406,7 +1445,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Inactive).HasColumnType("numeric(1, 0)");
 
-                entity.Property(e => e.ItemNum).HasMaxLength(60);
+                entity.Property(e => e.ItemNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.LastCount).HasColumnType("numeric(18, 4)");
 
@@ -1421,13 +1462,16 @@ namespace TundraApi.Data
                 entity.Property(e => e.ModifyDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Position)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("position")
                     .HasDefaultValueSql("('N/A')");
 
                 entity.Property(e => e.StockLevel).HasColumnType("numeric(18, 4)");
 
-                entity.Property(e => e.StoreRoom).HasMaxLength(60);
+                entity.Property(e => e.StoreRoom)
+                    .IsRequired()
+                    .HasMaxLength(60);
             });
 
             modelBuilder.Entity<InvMain>(entity =>
@@ -1449,6 +1493,7 @@ namespace TundraApi.Data
                     .HasColumnName("defmanufacturer");
 
                 entity.Property(e => e.Defposition)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("defposition")
                     .HasDefaultValueSql("('N/A')");
@@ -1465,7 +1510,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Inactive).HasColumnType("numeric(1, 0)");
 
-                entity.Property(e => e.ItemNum).HasMaxLength(60);
+                entity.Property(e => e.ItemNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.LastIssueDate).HasColumnType("datetime");
 
@@ -1481,7 +1528,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.ReorderMethod).HasMaxLength(20);
 
-                entity.Property(e => e.StoreRoom).HasMaxLength(60);
+                entity.Property(e => e.StoreRoom)
+                    .IsRequired()
+                    .HasMaxLength(60);
             });
 
             modelBuilder.Entity<Inventory>(entity =>
@@ -1607,7 +1656,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.IssueTo).HasMaxLength(60);
 
-                entity.Property(e => e.IssueUnit).HasMaxLength(60);
+                entity.Property(e => e.IssueUnit)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.ItemDesc).HasMaxLength(255);
 
@@ -1673,7 +1724,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.TransDate).HasColumnType("datetime");
 
-                entity.Property(e => e.TransType).HasMaxLength(20);
+                entity.Property(e => e.TransType)
+                    .IsRequired()
+                    .HasMaxLength(20);
 
                 entity.Property(e => e.UnitPrice).HasColumnType("numeric(18, 4)");
 
@@ -1698,7 +1751,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.DirtyLog).HasColumnType("numeric(18, 0)");
 
-                entity.Property(e => e.InvoiceNo).HasMaxLength(60);
+                entity.Property(e => e.InvoiceNo)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.InvoiceQty).HasColumnType("numeric(18, 4)");
 
@@ -1753,6 +1808,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.ModifyDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Ponumber)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("PONumber");
 
@@ -1789,10 +1845,12 @@ namespace TundraApi.Data
                 entity.Property(e => e.Inactive).HasColumnType("numeric(1, 0)");
 
                 entity.Property(e => e.IssueMethod)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.IssuePrice)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasDefaultValueSql("((0))");
 
@@ -1813,6 +1871,7 @@ namespace TundraApi.Data
                     .HasColumnName("modifyby");
 
                 entity.Property(e => e.PurchasePrice)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasDefaultValueSql("((0))");
 
@@ -2055,9 +2114,13 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Inactive).HasColumnType("numeric(1, 0)");
 
-                entity.Property(e => e.ItemCode).HasMaxLength(60);
+                entity.Property(e => e.ItemCode)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
-                entity.Property(e => e.ItemLevel).HasMaxLength(1);
+                entity.Property(e => e.ItemLevel)
+                    .IsRequired()
+                    .HasMaxLength(1);
 
                 entity.Property(e => e.ModifyBy).HasMaxLength(60);
 
@@ -2101,7 +2164,9 @@ namespace TundraApi.Data
                     .HasColumnType("numeric(1, 0)")
                     .HasDefaultValueSql("((0))");
 
-                entity.Property(e => e.ItemNum).HasMaxLength(60);
+                entity.Property(e => e.ItemNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.LastPrice).HasColumnType("numeric(18, 4)");
 
@@ -2117,7 +2182,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.QuotedPrice).HasColumnType("numeric(18, 4)");
 
-                entity.Property(e => e.Vendor).HasMaxLength(60);
+                entity.Property(e => e.Vendor)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.VendorPart).HasMaxLength(60);
             });
@@ -2152,10 +2219,12 @@ namespace TundraApi.Data
                 entity.Property(e => e.Inactive).HasColumnType("numeric(1, 0)");
 
                 entity.Property(e => e.IssueMethod)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasDefaultValueSql("(N'FIFO')");
 
                 entity.Property(e => e.IssuePrice)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasDefaultValueSql("(N'AVGPRICE')");
 
@@ -2174,6 +2243,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.ModifyDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Purchaseprice)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("PURCHASEPRICE")
                     .HasDefaultValueSql("(N'QUOTEDPRICE')");
@@ -2264,6 +2334,7 @@ namespace TundraApi.Data
                     .HasColumnName("description");
 
                 entity.Property(e => e.Empid)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("empid");
 
@@ -2272,6 +2343,7 @@ namespace TundraApi.Data
                     .HasColumnName("endtime");
 
                 entity.Property(e => e.Labtype)
+                    .IsRequired()
                     .HasMaxLength(20)
                     .HasColumnName("labtype");
 
@@ -2284,10 +2356,12 @@ namespace TundraApi.Data
                     .HasColumnName("starttime");
 
                 entity.Property(e => e.Status)
+                    .IsRequired()
                     .HasMaxLength(20)
                     .HasColumnName("status");
 
                 entity.Property(e => e.Wonum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("wonum");
             });
@@ -2744,6 +2818,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.ItemNum).HasMaxLength(60);
 
                 entity.Property(e => e.LotType)
+                    .IsRequired()
                     .HasMaxLength(20)
                     .HasDefaultValueSql("(N'ADJUSTMENT')");
 
@@ -2863,10 +2938,13 @@ namespace TundraApi.Data
                 entity.Property(e => e.ModifyDate).HasColumnType("datetime");
 
                 entity.Property(e => e.MtslipNum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("MTSlipNum");
 
-                entity.Property(e => e.ProdPeriod).HasMaxLength(10);
+                entity.Property(e => e.ProdPeriod)
+                    .IsRequired()
+                    .HasMaxLength(10);
 
                 entity.Property(e => e.SourceCoding).HasMaxLength(60);
 
@@ -2934,7 +3012,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.MeasureDate).HasColumnType("datetime");
 
-                entity.Property(e => e.MeasureReading).HasMaxLength(50);
+                entity.Property(e => e.MeasureReading)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.MeasurementName).HasMaxLength(60);
 
@@ -3088,7 +3168,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Estimate).HasColumnType("numeric(1, 0)");
 
-                entity.Property(e => e.FromAddress).HasMaxLength(255);
+                entity.Property(e => e.FromAddress)
+                    .IsRequired()
+                    .HasMaxLength(255);
 
                 entity.Property(e => e.FromLocation).HasMaxLength(60);
 
@@ -3102,7 +3184,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.ModifyDate).HasColumnType("datetime");
 
-                entity.Property(e => e.OrderType).HasMaxLength(60);
+                entity.Property(e => e.OrderType)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Rate).HasColumnType("numeric(18, 4)");
 
@@ -3114,7 +3198,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Tax2).HasColumnType("numeric(18, 4)");
 
-                entity.Property(e => e.ToAddress).HasMaxLength(255);
+                entity.Property(e => e.ToAddress)
+                    .IsRequired()
+                    .HasMaxLength(255);
 
                 entity.Property(e => e.ToLocation).HasMaxLength(60);
 
@@ -3124,7 +3210,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Unit).HasMaxLength(60);
 
-                entity.Property(e => e.WoNum).HasMaxLength(60);
+                entity.Property(e => e.WoNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
             });
 
             modelBuilder.Entity<NestedProc>(entity =>
@@ -3327,7 +3415,9 @@ namespace TundraApi.Data
 
                 entity.ToTable("PDMHistory");
 
-                entity.Property(e => e.ActionTriggered).HasMaxLength(20);
+                entity.Property(e => e.ActionTriggered)
+                    .IsRequired()
+                    .HasMaxLength(20);
 
                 entity.Property(e => e.Counter)
                     .HasColumnType("numeric(14, 0)")
@@ -3339,13 +3429,16 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.DirtyLog).HasColumnType("numeric(18, 0)");
 
-                entity.Property(e => e.MeasurementReading).HasMaxLength(60);
+                entity.Property(e => e.MeasurementReading)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.ModifyBy).HasMaxLength(60);
 
                 entity.Property(e => e.ModifyDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Pdmnum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("PDMNum");
 
@@ -3386,12 +3479,15 @@ namespace TundraApi.Data
                 entity.Property(e => e.Percentage).HasColumnType("numeric(18, 4)");
 
                 entity.Property(e => e.Phase1)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("Phase");
 
                 entity.Property(e => e.PhaseOrder).HasColumnType("numeric(18, 4)");
 
-                entity.Property(e => e.ProjectId).HasMaxLength(60);
+                entity.Property(e => e.ProjectId)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
             });
@@ -3592,7 +3688,9 @@ namespace TundraApi.Data
                     .HasColumnType("numeric(14, 0)")
                     .HasColumnName("dirtylog");
 
-                entity.Property(e => e.EndDate).HasMaxLength(5);
+                entity.Property(e => e.EndDate)
+                    .IsRequired()
+                    .HasMaxLength(5);
 
                 entity.Property(e => e.Modifyby)
                     .HasMaxLength(60)
@@ -3603,10 +3701,13 @@ namespace TundraApi.Data
                     .HasColumnName("modifydate");
 
                 entity.Property(e => e.Pmnum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("PMNum");
 
-                entity.Property(e => e.StartDate).HasMaxLength(5);
+                entity.Property(e => e.StartDate)
+                    .IsRequired()
+                    .HasMaxLength(5);
             });
 
             modelBuilder.Entity<Po>(entity =>
@@ -3840,6 +3941,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.NewEquip).HasColumnType("numeric(1, 0)");
 
                 entity.Property(e => e.OpenFlag)
+                    .IsRequired()
                     .HasMaxLength(1)
                     .HasDefaultValueSql("('O')");
 
@@ -4078,7 +4180,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.Vendor).HasMaxLength(60);
             });
 
-            modelBuilder.Entity<Models.Route>(entity =>
+            modelBuilder.Entity<Route>(entity =>
             {
                 entity.HasKey(e => e.RouteName)
                     .HasName("PK_Templates_RouteName");
@@ -4128,9 +4230,12 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.IdOrder).HasColumnType("numeric(5, 0)");
 
-                entity.Property(e => e.LinkId).HasMaxLength(60);
+                entity.Property(e => e.LinkId)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.LinkType)
+                    .IsRequired()
                     .HasMaxLength(20)
                     .HasDefaultValueSql("('equipment')");
 
@@ -4138,11 +4243,17 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.ModifyDate).HasColumnType("datetime");
 
-                entity.Property(e => e.ReadingType).HasMaxLength(60);
+                entity.Property(e => e.ReadingType)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
-                entity.Property(e => e.RouteName).HasMaxLength(60);
+                entity.Property(e => e.RouteName)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
-                entity.Property(e => e.SpecTag).HasMaxLength(60);
+                entity.Property(e => e.SpecTag)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.TagOrder).HasColumnType("numeric(5, 0)");
             });
@@ -4227,9 +4338,13 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.IsTemplate).HasColumnType("numeric(1, 0)");
 
-                entity.Property(e => e.LinkId).HasMaxLength(60);
+                entity.Property(e => e.LinkId)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
-                entity.Property(e => e.LinkType).HasMaxLength(20);
+                entity.Property(e => e.LinkType)
+                    .IsRequired()
+                    .HasMaxLength(20);
 
                 entity.Property(e => e.MeasUnit).HasMaxLength(60);
 
@@ -4241,7 +4356,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.OrderBy).HasColumnType("numeric(14, 0)");
 
-                entity.Property(e => e.SpecTag).HasMaxLength(60);
+                entity.Property(e => e.SpecTag)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.SpecValue).HasMaxLength(255);
             });
@@ -4428,6 +4545,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.Status).HasMaxLength(60);
 
                 entity.Property(e => e.StoreRoom1)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("StoreRoom");
 
@@ -4642,7 +4760,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.DrAccount).HasMaxLength(60);
 
-                entity.Property(e => e.Equipment).HasMaxLength(60);
+                entity.Property(e => e.Equipment)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.EquipmentDesc).HasMaxLength(255);
 
@@ -4820,7 +4940,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.ModifyDate).HasColumnType("datetime");
 
-                entity.Property(e => e.OrderType).HasMaxLength(60);
+                entity.Property(e => e.OrderType)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.PostDate).HasColumnType("datetime");
 
@@ -4892,6 +5014,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.Quantity).HasColumnType("numeric(18, 4)");
 
                 entity.Property(e => e.ReqType)
+                    .IsRequired()
                     .HasMaxLength(1)
                     .IsUnicode(false);
 
@@ -4955,7 +5078,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.AddCost).HasColumnType("numeric(38, 4)");
 
-                entity.Property(e => e.BatchNum).HasMaxLength(60);
+                entity.Property(e => e.BatchNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Cbtax1)
                     .HasColumnType("numeric(18, 4)")
@@ -5102,7 +5227,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Inactive).HasColumnType("numeric(1, 0)");
 
-                entity.Property(e => e.LinkId).HasMaxLength(60);
+                entity.Property(e => e.LinkId)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.LinkType).HasMaxLength(60);
 
@@ -5158,6 +5285,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.Quantity).HasColumnType("numeric(18, 4)");
 
                 entity.Property(e => e.ReqType)
+                    .IsRequired()
                     .HasMaxLength(1)
                     .IsUnicode(false);
 
@@ -5220,7 +5348,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.DrAccount).HasMaxLength(60);
 
-                entity.Property(e => e.Equipment).HasMaxLength(60);
+                entity.Property(e => e.Equipment)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.EquipmentDesc).HasMaxLength(255);
 
@@ -5276,7 +5406,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.ParentId).HasMaxLength(60);
 
-                entity.Property(e => e.PartItemNum).HasMaxLength(60);
+                entity.Property(e => e.PartItemNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.PostDate).HasColumnType("datetime");
 
@@ -5336,10 +5468,13 @@ namespace TundraApi.Data
                 entity.Property(e => e.ExportFlag).HasColumnType("numeric(1, 0)");
 
                 entity.Property(e => e.FieldType)
+                    .IsRequired()
                     .HasMaxLength(9)
                     .IsUnicode(false);
 
-                entity.Property(e => e.HistoryTag).HasMaxLength(5);
+                entity.Property(e => e.HistoryTag)
+                    .IsRequired()
+                    .HasMaxLength(5);
 
                 entity.Property(e => e.Id)
                     .HasColumnType("numeric(14, 0)")
@@ -5355,7 +5490,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.ModifyDate).HasColumnType("datetime");
 
-                entity.Property(e => e.Module).HasMaxLength(60);
+                entity.Property(e => e.Module)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.WwfieldDesc)
                     .HasMaxLength(100)
@@ -5366,6 +5503,7 @@ namespace TundraApi.Data
                     .HasColumnName("WWFieldLabel");
 
                 entity.Property(e => e.WwfieldName)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("WWFieldName");
 
@@ -5382,6 +5520,7 @@ namespace TundraApi.Data
                     .HasColumnName("WWSelectList");
 
                 entity.Property(e => e.WwtableName)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("WWTableName");
             });
@@ -5432,6 +5571,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.AcctNum).HasMaxLength(6);
 
                 entity.Property(e => e.ChargeType)
+                    .IsRequired()
                     .HasMaxLength(8)
                     .IsUnicode(false);
 
@@ -5447,11 +5587,14 @@ namespace TundraApi.Data
                     .HasMaxLength(60)
                     .HasColumnName("draccount");
 
-                entity.Property(e => e.FullWoNum).HasMaxLength(63);
+                entity.Property(e => e.FullWoNum)
+                    .IsRequired()
+                    .HasMaxLength(63);
 
                 entity.Property(e => e.Fund).HasMaxLength(5);
 
                 entity.Property(e => e.Ledger)
+                    .IsRequired()
                     .HasMaxLength(7)
                     .IsUnicode(false);
 
@@ -5464,10 +5607,13 @@ namespace TundraApi.Data
                 entity.Property(e => e.TotalCost).HasColumnType("numeric(20, 4)");
 
                 entity.Property(e => e.Unit)
+                    .IsRequired()
                     .HasMaxLength(5)
                     .IsUnicode(false);
 
-                entity.Property(e => e.WoNum).HasMaxLength(60);
+                entity.Property(e => e.WoNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.WoType).HasMaxLength(60);
             });
@@ -5484,7 +5630,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.TotalCost).HasColumnType("numeric(38, 4)");
 
-                entity.Property(e => e.WoNum).HasMaxLength(60);
+                entity.Property(e => e.WoNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
             });
 
             modelBuilder.Entity<VCurrchangerate>(entity =>
@@ -5534,7 +5682,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Currency).HasMaxLength(60);
 
-                entity.Property(e => e.Customer).HasMaxLength(60);
+                entity.Property(e => e.Customer)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.DirtyLog).HasColumnType("numeric(14, 0)");
 
@@ -5595,7 +5745,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.EmpName).HasMaxLength(306);
 
-                entity.Property(e => e.Empid).HasMaxLength(60);
+                entity.Property(e => e.Empid)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Manager).HasMaxLength(60);
 
@@ -5604,6 +5756,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.Rate).HasColumnType("numeric(18, 4)");
 
                 entity.Property(e => e.SelType)
+                    .IsRequired()
                     .HasMaxLength(1)
                     .IsUnicode(false);
 
@@ -5654,7 +5807,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.EmpTitle).HasMaxLength(30);
 
-                entity.Property(e => e.Empid).HasMaxLength(60);
+                entity.Property(e => e.Empid)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Employee).HasColumnType("numeric(1, 0)");
 
@@ -5733,7 +5888,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.EmpTitle).HasMaxLength(30);
 
-                entity.Property(e => e.Empid).HasMaxLength(60);
+                entity.Property(e => e.Empid)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Manager).HasMaxLength(60);
             });
@@ -5750,7 +5907,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Email).HasMaxLength(255);
 
-                entity.Property(e => e.Empid).HasMaxLength(60);
+                entity.Property(e => e.Empid)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.FirstName).HasMaxLength(255);
 
@@ -5763,6 +5922,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.Rate).HasColumnType("numeric(18, 4)");
 
                 entity.Property(e => e.SelType)
+                    .IsRequired()
                     .HasMaxLength(1)
                     .IsUnicode(false);
 
@@ -5785,7 +5945,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.MeasureDate).HasColumnType("datetime");
 
-                entity.Property(e => e.MeasureReading).HasMaxLength(50);
+                entity.Property(e => e.MeasureReading)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.MeasurementName).HasMaxLength(60);
             });
@@ -5869,7 +6031,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.DrAccount).HasMaxLength(60);
 
-                entity.Property(e => e.Equipment).HasMaxLength(60);
+                entity.Property(e => e.Equipment)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.EquipmentDesc).HasMaxLength(255);
 
@@ -6039,6 +6203,7 @@ namespace TundraApi.Data
                     .HasColumnName("Equipment_DrAccount");
 
                 entity.Property(e => e.EquipmentEquipment)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("Equipment_Equipment");
 
@@ -6302,7 +6467,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.DrAccount).HasMaxLength(60);
 
-                entity.Property(e => e.Equipment).HasMaxLength(60);
+                entity.Property(e => e.Equipment)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.EquipmentDesc).HasMaxLength(255);
 
@@ -6439,7 +6606,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.DrAccount).HasMaxLength(60);
 
-                entity.Property(e => e.Equipment).HasMaxLength(60);
+                entity.Property(e => e.Equipment)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.EquipmentDesc).HasMaxLength(255);
 
@@ -6557,10 +6726,12 @@ namespace TundraApi.Data
                     .HasColumnName("Equipment_DownTime0");
 
                 entity.Property(e => e.EquipmentEquipment)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("Equipment_Equipment");
 
                 entity.Property(e => e.EquipmentEquipment0)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("Equipment_Equipment0");
 
@@ -6617,6 +6788,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.WorkOrderRequest0).HasColumnName("WorkOrder_Request0");
 
                 entity.Property(e => e.WorkOrderWoNum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("WorkOrder_WoNum");
 
@@ -6685,7 +6857,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.ModifyDate).HasColumnType("datetime");
 
-                entity.Property(e => e.OrderType).HasMaxLength(60);
+                entity.Property(e => e.OrderType)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.OrderedQty).HasColumnType("numeric(38, 6)");
 
@@ -6789,6 +6963,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.OrderedQty).HasColumnType("numeric(38, 6)");
 
                 entity.Property(e => e.Ordertype)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("ordertype");
 
@@ -6854,6 +7029,7 @@ namespace TundraApi.Data
                     .HasColumnName("WOLabour_Hours");
 
                 entity.Property(e => e.WolabourOrderType)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("WOLabour_OrderType");
 
@@ -7128,6 +7304,7 @@ namespace TundraApi.Data
                     .HasColumnName("WorkOrder_TargetEndDate");
 
                 entity.Property(e => e.WorkOrderWoNum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("WorkOrder_WoNum");
 
@@ -7143,6 +7320,7 @@ namespace TundraApi.Data
                 entity.ToView("V_FUNDRECOVERY");
 
                 entity.Property(e => e.ActualType)
+                    .IsRequired()
                     .HasMaxLength(8)
                     .IsUnicode(false);
 
@@ -7176,6 +7354,7 @@ namespace TundraApi.Data
                     .HasColumnName("defmanufacturer");
 
                 entity.Property(e => e.Defposition)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("defposition");
 
@@ -7193,15 +7372,21 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Inactive).HasColumnType("numeric(1, 0)");
 
-                entity.Property(e => e.IssueMethod).HasMaxLength(60);
+                entity.Property(e => e.IssueMethod)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
-                entity.Property(e => e.IssuePrice).HasMaxLength(60);
+                entity.Property(e => e.IssuePrice)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.IssueUnit).HasMaxLength(60);
 
                 entity.Property(e => e.ItemDesc).HasMaxLength(255);
 
-                entity.Property(e => e.ItemNum).HasMaxLength(60);
+                entity.Property(e => e.ItemNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.LastIssueDate).HasColumnType("datetime");
 
@@ -7236,7 +7421,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Serialized).HasColumnType("numeric(1, 0)");
 
-                entity.Property(e => e.StoreRoom).HasMaxLength(60);
+                entity.Property(e => e.StoreRoom)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.VendorPart).HasMaxLength(60);
             });
@@ -7309,7 +7496,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.BaseCurrencyTotal).HasColumnType("numeric(18, 4)");
 
-                entity.Property(e => e.BatchNum).HasMaxLength(60);
+                entity.Property(e => e.BatchNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.BillAddress1).HasMaxLength(100);
 
@@ -7417,7 +7606,9 @@ namespace TundraApi.Data
                     .HasColumnType("numeric(1, 0)")
                     .HasColumnName("po9");
 
-                entity.Property(e => e.PoNum).HasMaxLength(60);
+                entity.Property(e => e.PoNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.PoTotal).HasColumnType("numeric(18, 4)");
 
@@ -7550,7 +7741,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.NewEquip).HasColumnType("numeric(1, 0)");
 
-                entity.Property(e => e.OpenFlag).HasMaxLength(1);
+                entity.Property(e => e.OpenFlag)
+                    .IsRequired()
+                    .HasMaxLength(1);
 
                 entity.Property(e => e.Operator).HasMaxLength(60);
 
@@ -7625,13 +7818,20 @@ namespace TundraApi.Data
                     .HasColumnType("numeric(1, 0)")
                     .HasColumnName("importtype");
 
-                entity.Property(e => e.InterfaceModule).HasMaxLength(60);
+                entity.Property(e => e.InterfaceModule)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
-                entity.Property(e => e.InterfaceName).HasMaxLength(60);
+                entity.Property(e => e.InterfaceName)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
-                entity.Property(e => e.InterfaceType).HasMaxLength(60);
+                entity.Property(e => e.InterfaceType)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.IsUsed)
+                    .IsRequired()
                     .HasMaxLength(3)
                     .IsUnicode(false);
 
@@ -7690,7 +7890,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Inactive).HasColumnType("numeric(1, 0)");
 
-                entity.Property(e => e.InterfaceName).HasMaxLength(60);
+                entity.Property(e => e.InterfaceName)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.InterfaceType).HasMaxLength(60);
 
@@ -7727,7 +7929,9 @@ namespace TundraApi.Data
 
                 entity.ToView("v_InvCountBatch");
 
-                entity.Property(e => e.BatchNum).HasMaxLength(60);
+                entity.Property(e => e.BatchNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Createdby).HasMaxLength(60);
 
@@ -7753,9 +7957,13 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.RequiredMatches).HasColumnType("numeric(4, 0)");
 
-                entity.Property(e => e.Status).HasMaxLength(60);
+                entity.Property(e => e.Status)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
-                entity.Property(e => e.Storeroom).HasMaxLength(60);
+                entity.Property(e => e.Storeroom)
+                    .IsRequired()
+                    .HasMaxLength(60);
             });
 
             modelBuilder.Entity<VInvCountLine>(entity =>
@@ -7766,7 +7974,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.AvgPrice).HasColumnType("numeric(18, 4)");
 
-                entity.Property(e => e.BatchNum).HasMaxLength(60);
+                entity.Property(e => e.BatchNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Category).HasMaxLength(60);
 
@@ -7783,6 +7993,7 @@ namespace TundraApi.Data
                     .HasColumnName("defmanufacturer");
 
                 entity.Property(e => e.Defposition)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("defposition");
 
@@ -7798,15 +8009,21 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.InStoreDate).HasColumnType("datetime");
 
-                entity.Property(e => e.IssueMethod).HasMaxLength(60);
+                entity.Property(e => e.IssueMethod)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
-                entity.Property(e => e.IssuePrice).HasMaxLength(60);
+                entity.Property(e => e.IssuePrice)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.IssueUnit).HasMaxLength(60);
 
                 entity.Property(e => e.ItemDesc).HasMaxLength(255);
 
-                entity.Property(e => e.ItemNum).HasMaxLength(60);
+                entity.Property(e => e.ItemNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.LastCount).HasColumnType("numeric(18, 4)");
 
@@ -7825,6 +8042,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.MinStock).HasColumnType("numeric(18, 4)");
 
                 entity.Property(e => e.Position)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("position");
 
@@ -7832,7 +8050,9 @@ namespace TundraApi.Data
                     .HasColumnType("numeric(18, 0)")
                     .HasColumnName("posted");
 
-                entity.Property(e => e.PurchasePrice).HasMaxLength(60);
+                entity.Property(e => e.PurchasePrice)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.ReorderMethod).HasMaxLength(20);
 
@@ -7840,7 +8060,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.StockLevel).HasColumnType("numeric(18, 4)");
 
-                entity.Property(e => e.StoreRoom).HasMaxLength(60);
+                entity.Property(e => e.StoreRoom)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.SubType0).HasMaxLength(60);
 
@@ -7866,6 +8088,7 @@ namespace TundraApi.Data
                 entity.ToView("V_INV_ITEM");
 
                 entity.Property(e => e.InactiveItem)
+                    .IsRequired()
                     .HasMaxLength(3)
                     .IsUnicode(false);
 
@@ -7900,10 +8123,12 @@ namespace TundraApi.Data
                     .HasColumnName("Items_Inactive");
 
                 entity.Property(e => e.ItemsIssueMethod)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("Items_IssueMethod");
 
                 entity.Property(e => e.ItemsIssuePrice)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("Items_IssuePrice");
 
@@ -7916,6 +8141,7 @@ namespace TundraApi.Data
                     .HasColumnName("Items_ItemDesc");
 
                 entity.Property(e => e.ItemsItemNum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("Items_ItemNum");
 
@@ -7940,6 +8166,7 @@ namespace TundraApi.Data
                     .HasColumnName("Items_modifyby");
 
                 entity.Property(e => e.ItemsPurchasePrice)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("Items_PurchasePrice");
 
@@ -8002,10 +8229,12 @@ namespace TundraApi.Data
                     .HasColumnName("printdate2");
 
                 entity.Property(e => e.SerializedItem)
+                    .IsRequired()
                     .HasMaxLength(3)
                     .IsUnicode(false);
 
                 entity.Property(e => e.StockedItem)
+                    .IsRequired()
                     .HasMaxLength(3)
                     .IsUnicode(false);
 
@@ -8029,6 +8258,7 @@ namespace TundraApi.Data
                     .HasColumnName("itemdesc");
 
                 entity.Property(e => e.Itemnum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("itemnum");
 
@@ -8037,6 +8267,7 @@ namespace TundraApi.Data
                     .HasColumnName("stocklevel");
 
                 entity.Property(e => e.Storeroom)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("storeroom");
             });
@@ -8069,7 +8300,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Inactive).HasColumnType("numeric(1, 0)");
 
-                entity.Property(e => e.ItemNum).HasMaxLength(60);
+                entity.Property(e => e.ItemNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.LastCount).HasColumnType("numeric(18, 4)");
 
@@ -8086,6 +8319,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.OriginalQuantity).HasColumnType("numeric(18, 4)");
 
                 entity.Property(e => e.Position)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("position");
 
@@ -8101,7 +8335,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.StockLevel).HasColumnType("numeric(18, 4)");
 
-                entity.Property(e => e.StoreRoom).HasMaxLength(60);
+                entity.Property(e => e.StoreRoom)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Tax1).HasColumnType("numeric(18, 4)");
 
@@ -8152,15 +8388,21 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Inactive).HasColumnType("numeric(1, 0)");
 
-                entity.Property(e => e.IssueMethod).HasMaxLength(60);
+                entity.Property(e => e.IssueMethod)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
-                entity.Property(e => e.IssuePrice).HasMaxLength(60);
+                entity.Property(e => e.IssuePrice)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.IssueUnit).HasMaxLength(60);
 
                 entity.Property(e => e.ItemDesc).HasMaxLength(255);
 
-                entity.Property(e => e.ItemNum).HasMaxLength(60);
+                entity.Property(e => e.ItemNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.LastCount).HasColumnType("numeric(18, 4)");
 
@@ -8179,6 +8421,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.ModifyDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Position)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("position");
 
@@ -8192,7 +8435,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.StockLevel).HasColumnType("numeric(18, 4)");
 
-                entity.Property(e => e.StoreRoom).HasMaxLength(60);
+                entity.Property(e => e.StoreRoom)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Vendor).HasMaxLength(60);
 
@@ -8213,11 +8458,14 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.ItemDesc).HasMaxLength(255);
 
-                entity.Property(e => e.ItemNum).HasMaxLength(60);
+                entity.Property(e => e.ItemNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Manufacturer).HasMaxLength(60);
 
                 entity.Property(e => e.Position)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("position");
 
@@ -8225,7 +8473,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Serialized).HasColumnType("numeric(1, 0)");
 
-                entity.Property(e => e.StoreRoom).HasMaxLength(60);
+                entity.Property(e => e.StoreRoom)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Vendor).HasMaxLength(60);
 
@@ -8253,6 +8503,7 @@ namespace TundraApi.Data
                     .HasColumnName("defmanufacturer");
 
                 entity.Property(e => e.Defposition)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("defposition");
 
@@ -8270,15 +8521,21 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Inactive).HasColumnType("numeric(1, 0)");
 
-                entity.Property(e => e.IssueMethod).HasMaxLength(60);
+                entity.Property(e => e.IssueMethod)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
-                entity.Property(e => e.IssuePrice).HasMaxLength(60);
+                entity.Property(e => e.IssuePrice)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.IssueUnit).HasMaxLength(60);
 
                 entity.Property(e => e.ItemDesc).HasMaxLength(255);
 
-                entity.Property(e => e.ItemNum).HasMaxLength(60);
+                entity.Property(e => e.ItemNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.LastIssueDate).HasColumnType("datetime");
 
@@ -8308,7 +8565,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Serialized).HasColumnType("numeric(1, 0)");
 
-                entity.Property(e => e.StoreRoom).HasMaxLength(60);
+                entity.Property(e => e.StoreRoom)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.VendorPart).HasMaxLength(60);
             });
@@ -8321,7 +8580,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.AddCost).HasColumnType("numeric(38, 4)");
 
-                entity.Property(e => e.BatchNum).HasMaxLength(60);
+                entity.Property(e => e.BatchNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Cbtax1)
                     .HasColumnType("numeric(18, 4)")
@@ -8512,7 +8773,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.IssueTo).HasMaxLength(60);
 
-                entity.Property(e => e.IssueUnit).HasMaxLength(60);
+                entity.Property(e => e.IssueUnit)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.ItemDesc).HasMaxLength(255);
 
@@ -8598,7 +8861,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.TransDate).HasColumnType("datetime");
 
-                entity.Property(e => e.TransType).HasMaxLength(20);
+                entity.Property(e => e.TransType)
+                    .IsRequired()
+                    .HasMaxLength(20);
 
                 entity.Property(e => e.UnitPrice).HasColumnType("numeric(18, 4)");
 
@@ -8653,15 +8918,21 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Inactive).HasColumnType("numeric(1, 0)");
 
-                entity.Property(e => e.IssueMethod).HasMaxLength(60);
+                entity.Property(e => e.IssueMethod)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
-                entity.Property(e => e.IssuePrice).HasMaxLength(60);
+                entity.Property(e => e.IssuePrice)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.IssueUnit).HasMaxLength(60);
 
                 entity.Property(e => e.ItemDesc).HasMaxLength(255);
 
-                entity.Property(e => e.ItemNum).HasMaxLength(60);
+                entity.Property(e => e.ItemNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.LastIssueDate).HasColumnType("datetime");
 
@@ -8739,15 +9010,21 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Inactive).HasColumnType("numeric(1, 0)");
 
-                entity.Property(e => e.IssueMethod).HasMaxLength(60);
+                entity.Property(e => e.IssueMethod)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
-                entity.Property(e => e.IssuePrice).HasMaxLength(60);
+                entity.Property(e => e.IssuePrice)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.IssueUnit).HasMaxLength(60);
 
                 entity.Property(e => e.ItemDesc).HasMaxLength(255);
 
-                entity.Property(e => e.ItemNum).HasMaxLength(60);
+                entity.Property(e => e.ItemNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.ManufPartNum).HasMaxLength(60);
 
@@ -8761,7 +9038,9 @@ namespace TundraApi.Data
                     .HasMaxLength(60)
                     .HasColumnName("modifyby");
 
-                entity.Property(e => e.PurchasePrice).HasMaxLength(60);
+                entity.Property(e => e.PurchasePrice)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Serialized).HasColumnType("numeric(1, 0)");
 
@@ -8810,21 +9089,29 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.IsDefault).HasColumnType("numeric(1, 0)");
 
-                entity.Property(e => e.IssueMethod).HasMaxLength(60);
+                entity.Property(e => e.IssueMethod)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
-                entity.Property(e => e.IssuePrice).HasMaxLength(60);
+                entity.Property(e => e.IssuePrice)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.IssueUnit).HasMaxLength(60);
 
                 entity.Property(e => e.ItemDesc).HasMaxLength(255);
 
-                entity.Property(e => e.ItemNum).HasMaxLength(60);
+                entity.Property(e => e.ItemNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.LastPrice).HasColumnType("numeric(18, 4)");
 
                 entity.Property(e => e.LookupCounter).HasColumnType("numeric(18, 0)");
 
-                entity.Property(e => e.PurchasePrice).HasMaxLength(60);
+                entity.Property(e => e.PurchasePrice)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.PurchaseUnit).HasMaxLength(60);
 
@@ -8832,7 +9119,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Serialized).HasColumnType("numeric(1, 0)");
 
-                entity.Property(e => e.Vendor).HasMaxLength(60);
+                entity.Property(e => e.Vendor)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.VendorPart).HasMaxLength(60);
             });
@@ -8906,6 +9195,7 @@ namespace TundraApi.Data
                     .HasColumnName("Employee_empgroup");
 
                 entity.Property(e => e.EmployeeEmpid)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("Employee_Empid");
 
@@ -8986,6 +9276,7 @@ namespace TundraApi.Data
                     .HasColumnName("Employee_UserFlags");
 
                 entity.Property(e => e.EmployeeYesNo)
+                    .IsRequired()
                     .HasMaxLength(3)
                     .IsUnicode(false);
 
@@ -8996,6 +9287,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.FullName).HasMaxLength(101);
 
                 entity.Property(e => e.InactiveYesNo)
+                    .IsRequired()
                     .HasMaxLength(3)
                     .IsUnicode(false);
 
@@ -9035,7 +9327,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.MeasureDate).HasColumnType("datetime");
 
-                entity.Property(e => e.MeasureReading).HasMaxLength(50);
+                entity.Property(e => e.MeasureReading)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.MeasurementName).HasMaxLength(60);
 
@@ -9188,6 +9482,7 @@ namespace TundraApi.Data
                     .HasColumnName("Location_locType");
 
                 entity.Property(e => e.LocationLocation)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("Location_Location");
 
@@ -9381,7 +9676,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.LocType).HasMaxLength(60);
 
-                entity.Property(e => e.Location).HasMaxLength(60);
+                entity.Property(e => e.Location)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.LocationDesc).HasMaxLength(255);
 
@@ -9648,7 +9945,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.IssueTo).HasMaxLength(60);
 
-                entity.Property(e => e.IssueUnit).HasMaxLength(60);
+                entity.Property(e => e.IssueUnit)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.ItemDesc).HasMaxLength(255);
 
@@ -9736,7 +10035,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.TransDate).HasColumnType("datetime");
 
-                entity.Property(e => e.TransType).HasMaxLength(20);
+                entity.Property(e => e.TransType)
+                    .IsRequired()
+                    .HasMaxLength(20);
 
                 entity.Property(e => e.UnitPrice).HasColumnType("numeric(18, 4)");
 
@@ -9776,14 +10077,18 @@ namespace TundraApi.Data
                 entity.Property(e => e.ModifyDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Mtnum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("MTNum");
 
                 entity.Property(e => e.MtslipNum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("MTSlipNum");
 
-                entity.Property(e => e.ProdPeriod).HasMaxLength(10);
+                entity.Property(e => e.ProdPeriod)
+                    .IsRequired()
+                    .HasMaxLength(10);
 
                 entity.Property(e => e.SourceCoding).HasMaxLength(60);
 
@@ -9968,6 +10273,7 @@ namespace TundraApi.Data
                     .HasColumnName("PDM_Operator");
 
                 entity.Property(e => e.PdmPdmnum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("PDM_PDMNum");
 
@@ -10426,6 +10732,7 @@ namespace TundraApi.Data
                     .HasColumnName("PDM_PDM9");
 
                 entity.Property(e => e.PdmPdmnum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("PDM_PDMNum");
 
@@ -10448,6 +10755,7 @@ namespace TundraApi.Data
                     .HasColumnName("PDM_WOStatus");
 
                 entity.Property(e => e.PdmhistoryActionTriggered)
+                    .IsRequired()
                     .HasMaxLength(20)
                     .HasColumnName("PDMHistory_ActionTriggered");
 
@@ -10460,10 +10768,12 @@ namespace TundraApi.Data
                     .HasColumnName("PDMHistory_CreationDate");
 
                 entity.Property(e => e.PdmhistoryMeasurementReading)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("PDMHistory_MeasurementReading");
 
                 entity.Property(e => e.PdmhistoryPdmnum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("PDMHistory_PDMNum");
 
@@ -10611,6 +10921,7 @@ namespace TundraApi.Data
                     .HasColumnName("PDM9");
 
                 entity.Property(e => e.Pdmnum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("PDMNum");
 
@@ -10638,6 +10949,7 @@ namespace TundraApi.Data
                     .HasColumnName("budget");
 
                 entity.Property(e => e.Id)
+                    .IsRequired()
                     .HasMaxLength(120)
                     .HasColumnName("ID");
 
@@ -10646,6 +10958,7 @@ namespace TundraApi.Data
                     .HasColumnName("manager");
 
                 entity.Property(e => e.Phase)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("phase");
 
@@ -10656,6 +10969,7 @@ namespace TundraApi.Data
                     .HasColumnName("prjtype");
 
                 entity.Property(e => e.Projectid)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("projectid");
             });
@@ -10879,6 +11193,7 @@ namespace TundraApi.Data
                     .HasColumnName("PM_OverrideDate");
 
                 entity.Property(e => e.PmPmNum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("PM_PmNum");
 
@@ -11080,7 +11395,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Pm4).HasColumnName("pm4");
 
-                entity.Property(e => e.PmNum).HasMaxLength(60);
+                entity.Property(e => e.PmNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.PmgenDate)
                     .HasColumnType("datetime")
@@ -11261,7 +11578,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Pm4).HasColumnName("pm4");
 
-                entity.Property(e => e.PmNum).HasMaxLength(60);
+                entity.Property(e => e.PmNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.PmgenDate)
                     .HasColumnType("datetime")
@@ -11616,6 +11935,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.PoPoDesc).HasColumnName("PO_PoDesc");
 
                 entity.Property(e => e.PoPoNum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("PO_PoNum");
 
@@ -12125,13 +12445,16 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.InvoiceDate).HasColumnType("datetime");
 
-                entity.Property(e => e.InvoiceNo).HasMaxLength(60);
+                entity.Property(e => e.InvoiceNo)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.ModifyBy).HasMaxLength(60);
 
                 entity.Property(e => e.ModifyDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Ponumber)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("PONumber");
 
@@ -12228,7 +12551,9 @@ namespace TundraApi.Data
                     .HasColumnType("numeric(1, 0)")
                     .HasColumnName("po9");
 
-                entity.Property(e => e.PoNum).HasMaxLength(60);
+                entity.Property(e => e.PoNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.PoTotal).HasColumnType("numeric(18, 4)");
 
@@ -12448,6 +12773,7 @@ namespace TundraApi.Data
                     .HasColumnName("Procedures_Priority");
 
                 entity.Property(e => e.ProceduresProcnum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("Procedures_procnum");
 
@@ -12556,7 +12882,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Priority).HasMaxLength(60);
 
-                entity.Property(e => e.ProcNum).HasMaxLength(60);
+                entity.Property(e => e.ProcNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Requester).HasMaxLength(60);
 
@@ -12657,7 +12985,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Priority).HasMaxLength(60);
 
-                entity.Property(e => e.ProcNum).HasMaxLength(60);
+                entity.Property(e => e.ProcNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Requester).HasMaxLength(60);
 
@@ -12772,7 +13102,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Priority).HasMaxLength(60);
 
-                entity.Property(e => e.ProcNum).HasMaxLength(60);
+                entity.Property(e => e.ProcNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Requester).HasMaxLength(60);
 
@@ -12865,7 +13197,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.PrjType).HasMaxLength(60);
 
-                entity.Property(e => e.ProjectId).HasMaxLength(60);
+                entity.Property(e => e.ProjectId)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
 
@@ -12948,6 +13282,7 @@ namespace TundraApi.Data
                     .HasColumnName("Projects_PrjType");
 
                 entity.Property(e => e.ProjectsProjectId)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("Projects_ProjectId");
 
@@ -12981,6 +13316,7 @@ namespace TundraApi.Data
                     .HasColumnName("ID");
 
                 entity.Property(e => e.Idnum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("idnum");
 
@@ -13003,16 +13339,19 @@ namespace TundraApi.Data
                     .HasColumnName("projectid");
 
                 entity.Property(e => e.Seq)
+                    .IsRequired()
                     .HasMaxLength(1)
                     .IsUnicode(false)
                     .HasColumnName("seq");
 
                 entity.Property(e => e.Title)
+                    .IsRequired()
                     .HasMaxLength(10)
                     .IsUnicode(false)
                     .HasColumnName("title");
 
                 entity.Property(e => e.Title2)
+                    .IsRequired()
                     .HasMaxLength(16)
                     .IsUnicode(false)
                     .HasColumnName("title2");
@@ -13058,7 +13397,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.EmpTitle).HasMaxLength(30);
 
-                entity.Property(e => e.Empid).HasMaxLength(60);
+                entity.Property(e => e.Empid)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Employee).HasColumnType("numeric(1, 0)");
 
@@ -13181,7 +13522,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.OpenDate).HasColumnType("datetime");
 
-                entity.Property(e => e.OpenFlag).HasMaxLength(1);
+                entity.Property(e => e.OpenFlag)
+                    .IsRequired()
+                    .HasMaxLength(1);
 
                 entity.Property(e => e.Operator).HasMaxLength(60);
 
@@ -13333,6 +13676,7 @@ namespace TundraApi.Data
                     .HasColumnName("reportmodule");
 
                 entity.Property(e => e.Reportname)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("reportname");
 
@@ -13431,7 +13775,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.RecipientSupervisor).HasMaxLength(60);
 
-                entity.Property(e => e.ReqNum).HasMaxLength(60);
+                entity.Property(e => e.ReqNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Requester).HasMaxLength(60);
 
@@ -13590,6 +13936,7 @@ namespace TundraApi.Data
                 entity.ToView("V_REQUISITION");
 
                 entity.Property(e => e.InactiveIr)
+                    .IsRequired()
                     .HasMaxLength(3)
                     .IsUnicode(false)
                     .HasColumnName("inactiveIR");
@@ -13653,6 +14000,7 @@ namespace TundraApi.Data
                     .HasColumnName("ItemRequest_Priority");
 
                 entity.Property(e => e.ItemRequestReqNum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("ItemRequest_ReqNum");
 
@@ -13756,7 +14104,9 @@ namespace TundraApi.Data
 
                 entity.ToView("v_ReservedItems");
 
-                entity.Property(e => e.ChargeTo).HasMaxLength(60);
+                entity.Property(e => e.ChargeTo)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Counter).HasColumnType("numeric(18, 0)");
 
@@ -13772,11 +14122,15 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.ItemDesc).HasMaxLength(255);
 
-                entity.Property(e => e.ItemNum).HasMaxLength(60);
+                entity.Property(e => e.ItemNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.LineCounter).HasColumnType("numeric(18, 0)");
 
-                entity.Property(e => e.LinkType).HasMaxLength(20);
+                entity.Property(e => e.LinkType)
+                    .IsRequired()
+                    .HasMaxLength(20);
 
                 entity.Property(e => e.ModifyBy).HasMaxLength(60);
 
@@ -13790,7 +14144,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Serialized).HasColumnType("numeric(1, 0)");
 
-                entity.Property(e => e.StoreRoom).HasMaxLength(60);
+                entity.Property(e => e.StoreRoom)
+                    .IsRequired()
+                    .HasMaxLength(60);
             });
 
             modelBuilder.Entity<VReturn>(entity =>
@@ -13799,13 +14155,18 @@ namespace TundraApi.Data
 
                 entity.ToView("v_Return");
 
-                entity.Property(e => e.BatchNum).HasMaxLength(60);
+                entity.Property(e => e.BatchNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.EquipSerial).HasMaxLength(60);
 
-                entity.Property(e => e.IssueMethod).HasMaxLength(60);
+                entity.Property(e => e.IssueMethod)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.IssueType)
+                    .IsRequired()
                     .HasMaxLength(11)
                     .IsUnicode(false);
 
@@ -13970,6 +14331,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.ReturnFrom).HasMaxLength(60);
 
                 entity.Property(e => e.ReturnType)
+                    .IsRequired()
                     .HasMaxLength(11)
                     .IsUnicode(false);
 
@@ -14031,6 +14393,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.ReturnFrom).HasMaxLength(60);
 
                 entity.Property(e => e.ReturnType)
+                    .IsRequired()
                     .HasMaxLength(11)
                     .IsUnicode(false);
 
@@ -14075,7 +14438,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.RouteDesc).HasMaxLength(255);
 
-                entity.Property(e => e.RouteName).HasMaxLength(60);
+                entity.Property(e => e.RouteName)
+                    .IsRequired()
+                    .HasMaxLength(60);
             });
 
             modelBuilder.Entity<VRouteReading>(entity =>
@@ -14116,9 +14481,13 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.LastReadingDate).HasColumnType("datetime");
 
-                entity.Property(e => e.LinkId).HasMaxLength(60);
+                entity.Property(e => e.LinkId)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
-                entity.Property(e => e.LinkType).HasMaxLength(20);
+                entity.Property(e => e.LinkType)
+                    .IsRequired()
+                    .HasMaxLength(20);
 
                 entity.Property(e => e.Location).HasMaxLength(60);
 
@@ -14137,12 +14506,16 @@ namespace TundraApi.Data
                 entity.Property(e => e.Priority).HasMaxLength(60);
 
                 entity.Property(e => e.Readingtype)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("readingtype");
 
-                entity.Property(e => e.RouteName).HasMaxLength(60);
+                entity.Property(e => e.RouteName)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Spectag)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("spectag");
 
@@ -14189,7 +14562,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.RouteDesc).HasMaxLength(255);
 
-                entity.Property(e => e.RouteName).HasMaxLength(60);
+                entity.Property(e => e.RouteName)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.UserId).HasMaxLength(60);
             });
@@ -14295,7 +14670,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.AddCost).HasColumnType("numeric(38, 4)");
 
-                entity.Property(e => e.BatchNum).HasMaxLength(60);
+                entity.Property(e => e.BatchNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Cbtax1)
                     .HasColumnType("numeric(18, 4)")
@@ -14460,7 +14837,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.IssueTo).HasMaxLength(60);
 
-                entity.Property(e => e.IssueUnit).HasMaxLength(60);
+                entity.Property(e => e.IssueUnit)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.ItemDesc).HasMaxLength(255);
 
@@ -14514,7 +14893,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.TransDate).HasColumnType("datetime");
 
-                entity.Property(e => e.TransType).HasMaxLength(20);
+                entity.Property(e => e.TransType)
+                    .IsRequired()
+                    .HasMaxLength(20);
 
                 entity.Property(e => e.UnitPrice).HasColumnType("numeric(18, 4)");
 
@@ -14537,7 +14918,9 @@ namespace TundraApi.Data
 
                 entity.ToView("v_Specification");
 
-                entity.Property(e => e.SpecTag).HasMaxLength(60);
+                entity.Property(e => e.SpecTag)
+                    .IsRequired()
+                    .HasMaxLength(60);
             });
 
             modelBuilder.Entity<VStagingIssue>(entity =>
@@ -14548,7 +14931,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.AddCost).HasColumnType("numeric(38, 4)");
 
-                entity.Property(e => e.BatchNum).HasMaxLength(60);
+                entity.Property(e => e.BatchNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Cbtax1)
                     .HasColumnType("numeric(18, 4)")
@@ -14688,6 +15073,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.System).HasColumnType("numeric(1, 0)");
 
                 entity.Property(e => e.Tcode)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("tcode");
 
@@ -14708,6 +15094,7 @@ namespace TundraApi.Data
                     .HasColumnName("tdesc");
 
                 entity.Property(e => e.Tfield)
+                    .IsRequired()
                     .HasMaxLength(20)
                     .HasColumnName("tfield");
             });
@@ -14728,7 +15115,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.Inactive).HasColumnType("numeric(1, 0)");
 
-                entity.Property(e => e.StoreRoom).HasMaxLength(60);
+                entity.Property(e => e.StoreRoom)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.UserId).HasMaxLength(60);
             });
@@ -14751,6 +15140,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.IsView).HasColumnType("numeric(1, 0)");
 
                 entity.Property(e => e.WwtableName)
+                    .IsRequired()
                     .HasMaxLength(128)
                     .HasColumnName("WWTableName");
             });
@@ -14781,7 +15171,9 @@ namespace TundraApi.Data
                     .HasMaxLength(100)
                     .HasColumnName("fieldlist");
 
-                entity.Property(e => e.HistoryTag).HasMaxLength(5);
+                entity.Property(e => e.HistoryTag)
+                    .IsRequired()
+                    .HasMaxLength(5);
 
                 entity.Property(e => e.Id)
                     .HasColumnType("numeric(14, 0)")
@@ -14810,6 +15202,7 @@ namespace TundraApi.Data
                     .HasColumnName("WWFieldLabel");
 
                 entity.Property(e => e.WwfieldName)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("WWFieldName");
 
@@ -14826,6 +15219,7 @@ namespace TundraApi.Data
                     .HasColumnName("WWSelectList");
 
                 entity.Property(e => e.WwtableName)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("WWTableName");
             });
@@ -14887,6 +15281,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.ModifyDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Ordertype)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("ordertype");
 
@@ -14923,7 +15318,9 @@ namespace TundraApi.Data
 
                 entity.ToView("v_UserGroups");
 
-                entity.Property(e => e.GroupId).HasMaxLength(60);
+                entity.Property(e => e.GroupId)
+                    .IsRequired()
+                    .HasMaxLength(60);
             });
 
             modelBuilder.Entity<VVariablestest>(entity =>
@@ -14935,6 +15332,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.EmpName).HasMaxLength(101);
 
                 entity.Property(e => e.Empid)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("empid");
 
@@ -14967,6 +15365,7 @@ namespace TundraApi.Data
                     .HasColumnName("countrypluszip");
 
                 entity.Property(e => e.InactiveVendor)
+                    .IsRequired()
                     .HasMaxLength(3)
                     .IsUnicode(false);
 
@@ -14996,6 +15395,7 @@ namespace TundraApi.Data
                     .HasColumnName("Vendor_City");
 
                 entity.Property(e => e.VendorCompanyCode)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("Vendor_CompanyCode");
 
@@ -15100,7 +15500,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.City).HasMaxLength(60);
 
-                entity.Property(e => e.CompanyCode).HasMaxLength(60);
+                entity.Property(e => e.CompanyCode)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Contact).HasMaxLength(60);
 
@@ -15236,12 +15638,14 @@ namespace TundraApi.Data
                 entity.Property(e => e.Sqltext).HasColumnName("SQLTEXT");
 
                 entity.Property(e => e.TableName)
+                    .IsRequired()
                     .HasMaxLength(128)
                     .HasColumnName("TABLE_NAME");
 
                 entity.Property(e => e.Tablelist).HasColumnName("tablelist");
 
                 entity.Property(e => e.ViewName)
+                    .IsRequired()
                     .HasMaxLength(128)
                     .HasColumnName("VIEW_NAME");
             });
@@ -15285,7 +15689,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.EstTotalCost).HasColumnType("numeric(21, 4)");
 
-                entity.Property(e => e.WoNum).HasMaxLength(60);
+                entity.Property(e => e.WoNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
             });
 
             modelBuilder.Entity<VWoandequip>(entity =>
@@ -15301,6 +15707,7 @@ namespace TundraApi.Data
                     .HasColumnName("COST");
 
                 entity.Property(e => e.EquipmentEquipment)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("Equipment_Equipment");
 
@@ -15327,6 +15734,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.WorkOrderRequest).HasColumnName("WorkOrder_Request");
 
                 entity.Property(e => e.WorkOrderWoNum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("WorkOrder_WoNum");
 
@@ -15362,6 +15770,7 @@ namespace TundraApi.Data
                     .HasColumnName("WorkOrder_Status");
 
                 entity.Property(e => e.WorkOrderWoNum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("WorkOrder_WoNum");
 
@@ -15608,7 +16017,9 @@ namespace TundraApi.Data
                     .HasColumnType("numeric(18, 4)")
                     .HasColumnName("wo8");
 
-                entity.Property(e => e.WoNum).HasMaxLength(60);
+                entity.Property(e => e.WoNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.WoType).HasMaxLength(60);
 
@@ -15674,6 +16085,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.ModifyDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Ordertype)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("ordertype");
 
@@ -15850,6 +16262,7 @@ namespace TundraApi.Data
                     .HasColumnName("WOMaterial_ModifyDate");
 
                 entity.Property(e => e.WomaterialOrderType)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("WOMaterial_OrderType");
 
@@ -16316,6 +16729,7 @@ namespace TundraApi.Data
                     .HasColumnName("WorkOrder_wo8");
 
                 entity.Property(e => e.WorkOrderWoNum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("WorkOrder_WoNum");
 
@@ -16564,7 +16978,9 @@ namespace TundraApi.Data
                     .HasColumnType("numeric(18, 4)")
                     .HasColumnName("wo8");
 
-                entity.Property(e => e.WoNum).HasMaxLength(60);
+                entity.Property(e => e.WoNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.WoType).HasMaxLength(60);
 
@@ -16985,6 +17401,7 @@ namespace TundraApi.Data
                     .HasColumnName("WorkOrder_TargetEndDate");
 
                 entity.Property(e => e.WorkOrderWoNum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("WorkOrder_WoNum");
 
@@ -17247,7 +17664,9 @@ namespace TundraApi.Data
                     .HasColumnType("numeric(18, 4)")
                     .HasColumnName("wo8");
 
-                entity.Property(e => e.WoNum).HasMaxLength(60);
+                entity.Property(e => e.WoNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.WoType).HasMaxLength(60);
 
@@ -17399,6 +17818,7 @@ namespace TundraApi.Data
                     .HasColumnName("WOSubType");
 
                 entity.Property(e => e.Wrnum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("WRNum");
             });
@@ -17410,6 +17830,7 @@ namespace TundraApi.Data
                 entity.ToView("V_WORKBYTYPE");
 
                 entity.Property(e => e.WorkOrderWoNum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("WorkOrder_WoNum");
 
@@ -17428,7 +17849,9 @@ namespace TundraApi.Data
                     .HasMaxLength(128)
                     .HasColumnName("ACCOUNT");
 
-                entity.Property(e => e.Counter).HasMaxLength(60);
+                entity.Property(e => e.Counter)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.FifthRequester).HasMaxLength(60);
 
@@ -17725,6 +18148,7 @@ namespace TundraApi.Data
                     .HasColumnName("WorkOrder_TargetEndDate");
 
                 entity.Property(e => e.WorkOrderWoNum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("WorkOrder_WoNum");
 
@@ -18159,6 +18583,7 @@ namespace TundraApi.Data
                     .HasColumnName("WorkRequest_WoType");
 
                 entity.Property(e => e.WorkRequestWrnum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("WorkRequest_WRNum");
             });
@@ -18341,7 +18766,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.StatusCode).HasColumnType("numeric(14, 0)");
 
-                entity.Property(e => e.StoreRoom).HasMaxLength(60);
+                entity.Property(e => e.StoreRoom)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.StoreroomAddress1)
                     .HasMaxLength(100)
@@ -18601,7 +19028,9 @@ namespace TundraApi.Data
                     .HasColumnType("numeric(18, 4)")
                     .HasColumnName("wo8");
 
-                entity.Property(e => e.WoNum).HasMaxLength(60);
+                entity.Property(e => e.WoNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.WoType).HasMaxLength(60);
 
@@ -18618,7 +19047,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.AssignDate).HasColumnType("datetime");
 
-                entity.Property(e => e.AssignedBy).HasMaxLength(60);
+                entity.Property(e => e.AssignedBy)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Counter).HasColumnType("numeric(18, 0)");
 
@@ -18637,10 +19068,12 @@ namespace TundraApi.Data
                 entity.Property(e => e.Wocount).HasColumnName("wocount");
 
                 entity.Property(e => e.Wonum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("WONum");
 
                 entity.Property(e => e.Wrnum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("WRNum");
             });
@@ -18736,10 +19169,12 @@ namespace TundraApi.Data
                 entity.Property(e => e.AcctNum).HasMaxLength(6);
 
                 entity.Property(e => e.ActualType)
+                    .IsRequired()
                     .HasMaxLength(8)
                     .IsUnicode(false);
 
                 entity.Property(e => e.ChargeType)
+                    .IsRequired()
                     .HasMaxLength(7)
                     .IsUnicode(false);
 
@@ -18757,7 +19192,9 @@ namespace TundraApi.Data
                     .HasMaxLength(60)
                     .HasColumnName("draccount");
 
-                entity.Property(e => e.FullWoNum).HasMaxLength(63);
+                entity.Property(e => e.FullWoNum)
+                    .IsRequired()
+                    .HasMaxLength(63);
 
                 entity.Property(e => e.Fund).HasMaxLength(5);
 
@@ -18769,7 +19206,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.TotalCost).HasColumnType("numeric(18, 4)");
 
-                entity.Property(e => e.WoNum).HasMaxLength(60);
+                entity.Property(e => e.WoNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.WoType).HasMaxLength(60);
             });
@@ -18783,6 +19222,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.AcctNum).HasMaxLength(6);
 
                 entity.Property(e => e.ChargeType)
+                    .IsRequired()
                     .HasMaxLength(8)
                     .IsUnicode(false);
 
@@ -18791,6 +19231,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.CompDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Currency)
+                    .IsRequired()
                     .HasMaxLength(3)
                     .IsUnicode(false);
 
@@ -18798,11 +19239,14 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.DrAccount).HasMaxLength(60);
 
-                entity.Property(e => e.FullWoNum).HasMaxLength(67);
+                entity.Property(e => e.FullWoNum)
+                    .IsRequired()
+                    .HasMaxLength(67);
 
                 entity.Property(e => e.Fund).HasMaxLength(5);
 
                 entity.Property(e => e.Ledger)
+                    .IsRequired()
                     .HasMaxLength(7)
                     .IsUnicode(false);
 
@@ -18815,10 +19259,13 @@ namespace TundraApi.Data
                 entity.Property(e => e.TotalCost).HasColumnType("numeric(20, 4)");
 
                 entity.Property(e => e.Unit)
+                    .IsRequired()
                     .HasMaxLength(5)
                     .IsUnicode(false);
 
-                entity.Property(e => e.WoNum).HasMaxLength(60);
+                entity.Property(e => e.WoNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Wotype)
                     .HasMaxLength(60)
@@ -18834,61 +19281,17 @@ namespace TundraApi.Data
                 entity.Property(e => e.AcctNum).HasMaxLength(6);
 
                 entity.Property(e => e.Actual)
+                    .IsRequired()
                     .HasMaxLength(8)
                     .IsUnicode(false);
 
                 entity.Property(e => e.ActualType)
+                    .IsRequired()
                     .HasMaxLength(8)
                     .IsUnicode(false);
 
                 entity.Property(e => e.ChargeType)
-                    .HasMaxLength(8)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Class).HasMaxLength(5);
-
-                entity.Property(e => e.Compdate)
-                    .HasColumnType("datetime")
-                    .HasColumnName("compdate");
-
-                entity.Property(e => e.Department).HasMaxLength(60);
-
-                entity.Property(e => e.Dept).HasMaxLength(3);
-
-                entity.Property(e => e.Draccount)
-                    .HasMaxLength(60)
-                    .HasColumnName("draccount");
-
-                entity.Property(e => e.FullWoNum).HasMaxLength(63);
-
-                entity.Property(e => e.Fund).HasMaxLength(5);
-
-                entity.Property(e => e.Program).HasMaxLength(5);
-
-                entity.Property(e => e.Project).HasMaxLength(5);
-
-                entity.Property(e => e.Status).HasMaxLength(60);
-
-                entity.Property(e => e.TotalCost).HasColumnType("numeric(20, 4)");
-
-                entity.Property(e => e.WoNum).HasMaxLength(60);
-
-                entity.Property(e => e.WoType).HasMaxLength(60);
-            });
-
-            modelBuilder.Entity<Vcostrecoverydetail>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToView("VCOSTRECOVERYDETAIL");
-
-                entity.Property(e => e.AcctNum).HasMaxLength(6);
-
-                entity.Property(e => e.ActualType)
-                    .HasMaxLength(8)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.ChargeType)
+                    .IsRequired()
                     .HasMaxLength(8)
                     .IsUnicode(false);
 
@@ -18907,6 +19310,60 @@ namespace TundraApi.Data
                     .HasColumnName("draccount");
 
                 entity.Property(e => e.FullWoNum)
+                    .IsRequired()
+                    .HasMaxLength(63);
+
+                entity.Property(e => e.Fund).HasMaxLength(5);
+
+                entity.Property(e => e.Program).HasMaxLength(5);
+
+                entity.Property(e => e.Project).HasMaxLength(5);
+
+                entity.Property(e => e.Status).HasMaxLength(60);
+
+                entity.Property(e => e.TotalCost).HasColumnType("numeric(20, 4)");
+
+                entity.Property(e => e.WoNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.WoType).HasMaxLength(60);
+            });
+
+            modelBuilder.Entity<Vcostrecoverydetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("VCOSTRECOVERYDETAIL");
+
+                entity.Property(e => e.AcctNum).HasMaxLength(6);
+
+                entity.Property(e => e.ActualType)
+                    .IsRequired()
+                    .HasMaxLength(8)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ChargeType)
+                    .IsRequired()
+                    .HasMaxLength(8)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Class).HasMaxLength(5);
+
+                entity.Property(e => e.Compdate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("compdate");
+
+                entity.Property(e => e.Department).HasMaxLength(60);
+
+                entity.Property(e => e.Dept).HasMaxLength(3);
+
+                entity.Property(e => e.Draccount)
+                    .HasMaxLength(60)
+                    .HasColumnName("draccount");
+
+                entity.Property(e => e.FullWoNum)
+                    .IsRequired()
                     .HasMaxLength(5)
                     .IsUnicode(false);
 
@@ -18917,6 +19374,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.Project).HasMaxLength(5);
 
                 entity.Property(e => e.Request)
+                    .IsRequired()
                     .HasMaxLength(1)
                     .IsUnicode(false)
                     .HasColumnName("request");
@@ -18925,7 +19383,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.TotalCost).HasColumnType("numeric(20, 4)");
 
-                entity.Property(e => e.WoNum).HasMaxLength(60);
+                entity.Property(e => e.WoNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.WoType).HasMaxLength(60);
             });
@@ -18943,6 +19403,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.CompDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Currency)
+                    .IsRequired()
                     .HasMaxLength(3)
                     .IsUnicode(false);
 
@@ -18951,12 +19412,14 @@ namespace TundraApi.Data
                 entity.Property(e => e.DrAccount).HasMaxLength(60);
 
                 entity.Property(e => e.FullWoNum)
+                    .IsRequired()
                     .HasMaxLength(9)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Fund).HasMaxLength(5);
 
                 entity.Property(e => e.Ledger)
+                    .IsRequired()
                     .HasMaxLength(7)
                     .IsUnicode(false);
 
@@ -18969,10 +19432,13 @@ namespace TundraApi.Data
                 entity.Property(e => e.TotalCost).HasColumnType("numeric(18, 4)");
 
                 entity.Property(e => e.Unit)
+                    .IsRequired()
                     .HasMaxLength(5)
                     .IsUnicode(false);
 
-                entity.Property(e => e.WoNum).HasMaxLength(60);
+                entity.Property(e => e.WoNum)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Wotype)
                     .HasMaxLength(60)
@@ -19166,7 +19632,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.QuotedPrice).HasColumnType("numeric(18, 4)");
 
-                entity.Property(e => e.ServiceCode).HasMaxLength(60);
+                entity.Property(e => e.ServiceCode)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Unit).HasMaxLength(60);
 
@@ -19313,6 +19781,7 @@ namespace TundraApi.Data
                     .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.Ordertype)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("ordertype")
                     .HasDefaultValueSql("('workorder')");
@@ -19418,6 +19887,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.ModifyDate).HasColumnType("datetime");
 
                 entity.Property(e => e.OrderType)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasDefaultValueSql("('workorder')");
 
@@ -19988,6 +20458,8 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.CreationDate).HasColumnType("datetime");
 
+                entity.Property(e => e.Description).IsRequired();
+
                 entity.Property(e => e.DirtyLog).HasColumnType("numeric(18, 0)");
 
                 entity.Property(e => e.Inactive).HasColumnType("numeric(1, 0)");
@@ -20057,6 +20529,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.ModifyDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Ordertype)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("ordertype")
                     .HasDefaultValueSql("('workorder')");
@@ -20144,6 +20617,7 @@ namespace TundraApi.Data
                     .HasColumnName("modifyby");
 
                 entity.Property(e => e.Ordertype)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("ordertype")
                     .HasDefaultValueSql("('workorder')");
@@ -20229,6 +20703,7 @@ namespace TundraApi.Data
                 entity.Property(e => e.ModifyDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Ordertype)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("ordertype")
                     .HasDefaultValueSql("('workorder')");
@@ -20315,7 +20790,9 @@ namespace TundraApi.Data
 
                 entity.Property(e => e.AssignDate).HasColumnType("datetime");
 
-                entity.Property(e => e.AssignedBy).HasMaxLength(60);
+                entity.Property(e => e.AssignedBy)
+                    .IsRequired()
+                    .HasMaxLength(60);
 
                 entity.Property(e => e.Counter)
                     .HasColumnType("numeric(18, 0)")
@@ -20334,10 +20811,12 @@ namespace TundraApi.Data
                 entity.Property(e => e.ModifyDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Wonum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("WONum");
 
                 entity.Property(e => e.Wrnum)
+                    .IsRequired()
                     .HasMaxLength(60)
                     .HasColumnName("WRNum");
             });
